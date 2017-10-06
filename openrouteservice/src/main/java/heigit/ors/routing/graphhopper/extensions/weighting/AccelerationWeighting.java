@@ -25,7 +25,7 @@ import com.graphhopper.routing.util.FlagEncoder;
 import com.graphhopper.routing.weighting.FastestWeighting;
 import com.graphhopper.storage.GraphHopperStorage;
 import com.graphhopper.storage.GraphStorage;
-import com.graphhopper.util.Helper;
+//import com.graphhopper.util.Helper;
 import com.graphhopper.util.AngleCalc;
 import com.graphhopper.util.EdgeIteratorState;
 import com.graphhopper.util.PMap;
@@ -106,7 +106,7 @@ public class AccelerationWeighting extends FastestWeighting {
 	private boolean isFullTurn(double angle)
 	{
 		return angle > 50 && angle <= 140;
-	} 
+	}
 
 	@Override
 	public long calcMillis(EdgeIteratorState edgeState, boolean reverse, int prevOrNextEdgeId) {
@@ -120,7 +120,7 @@ public class AccelerationWeighting extends FastestWeighting {
 			double speed = flagEncoder.getSpeed(edgeState.getFlags());
 			return 15000;
 		}
- 
+
 		PointList currEdgeGeom, prevEdgeGeom;
 		if (reverse)
 		{
