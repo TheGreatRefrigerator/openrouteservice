@@ -51,7 +51,8 @@ public class EmergencyVehicleGraphStorageBuilder extends AbstractGraphStorageBui
 	private Pattern _patternHeight;
 
 	public EmergencyVehicleGraphStorageBuilder()
-	{
+	{	
+		// no restrictions for emergency vehicles needed
 		// _motorVehicleRestrictions.addAll(Arrays.asList("motorcar", "motor_vehicle", "vehicle", "access"));
 
 		// _motorVehicleRestrictedValues.add("private");
@@ -95,7 +96,7 @@ public class EmergencyVehicleGraphStorageBuilder extends AbstractGraphStorageBui
 
 		boolean hasHighway = way.hasTag("highway");
 			if (hasHighway && way.hasTag(_motorVehicleRestrictions, _motorVehicleRestrictedValues))
-			{// set to 0
+			{// only one Type is needed for now
 				_hgvType |= 0;
 				// _hgvType |= HeavyVehicleAttributes.BUS;
 				// _hgvType |= HeavyVehicleAttributes.AGRICULTURE;
@@ -295,10 +296,10 @@ public class EmergencyVehicleGraphStorageBuilder extends AbstractGraphStorageBui
 							// 	}
 							// }
 
-							// String hazmatTag = key.equals("hazmat") ? value : null;
-							// if ("no".equals(hazmatTag)) {
-							// 	_hgvType |= HeavyVehicleAttributes.HAZMAT;
-							// }
+							 String hazmatTag = key.equals("hazmat") ? value : null;
+							 if ("no".equals(hazmatTag)) {
+							 	_hgvType |= HeavyVehicleAttributes.HAZMAT;
+							 }
 
 							// (access=no) + access:conditional=delivery @
 							// (07:00-11:00); customer @ (07:00-17:00)
