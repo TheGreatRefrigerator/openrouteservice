@@ -175,11 +175,11 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
         // additional available for emergency
         defaultSpeedMap.put("raceway", 100);
         defaultSpeedMap.put("cycleway", 10);
+        defaultSpeedMap.put("pedestrian", 10);
+        defaultSpeedMap.put("footway", 5);
         // how to declare this ?
-        defaultSpeedMap.put("aeroway=runway", 100);
-        defaultSpeedMap.put("aeroway=taxilane", 100);
-        
-        // FIXME: allow highway=footway, pedestrian
+        //defaultSpeedMap.put("aeroway=runway", 100);
+        //defaultSpeedMap.put("aeroway=taxilane", 100);
         
         _speedLimitHandler = new SpeedLimitHandler(this.toString(), defaultSpeedMap, badSurfaceSpeedMap, trackTypeSpeedMap);
 
@@ -269,6 +269,12 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
 			double defaultSpeed = _speedLimitHandler.getSpeed(highway);
 			if (defaultSpeed < maxSpeed) // TODO
 				maxSpeed = defaultSpeed;
+			// 30er Zone TODO restrict to waytype
+			if(maxSpeed == 30)
+				maxSpeed = 50;
+			//Spielstrasse
+			if(maxSpeed == 7 && highway == "living_street")
+				maxSpeed = 20;
 		}
 /**
  * 
@@ -366,7 +372,8 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
         if (way.hasTag("lanes:psv") || way.hasTag("lanes:bus") || way.hasTag("lanes:taxi") || way.hasTag("busway, lane") || way.hasTag("busway:left, lane") || way.hasTag("busway:right, lane"))
             return acceptBit;
         // allow railway=tram where paved? no suitable exclusion criteria found yet
-
+        if (way.hasTag("aeroway", "runway") || way.hasTag("aeroway", "taxilane"))
+        	return acceptBit;
         // do not drive cars over railways (sometimes incorrectly mapped!)
     /*    if (way.hasTag("railway") && !way.hasTag("railway", acceptedRailways))
         {

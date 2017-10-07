@@ -22,24 +22,25 @@ package heigit.ors.isochrones;
 
 import com.carrotsearch.hppc.IntObjectMap;
 import com.graphhopper.GraphHopper;
-import com.graphhopper.routing.weighting.FastestWeighting;
 import com.graphhopper.routing.util.FlagEncoder;
 import com.graphhopper.routing.util.HintsMap;
 import com.graphhopper.routing.util.TraversalMode;
+import com.graphhopper.routing.weighting.FastestWeighting;
 import com.graphhopper.routing.weighting.Weighting;
-import com.graphhopper.storage.SPTEntry;
 import com.graphhopper.storage.GraphHopperStorage;
+import com.graphhopper.storage.SPTEntry;
 import com.graphhopper.storage.index.QueryResult;
 import com.graphhopper.util.ByteArrayBuffer;
 import com.vividsolutions.jts.geom.Coordinate;
 
 import heigit.ors.common.TravelRangeType;
 import heigit.ors.exceptions.InternalServerException;
-import heigit.ors.isochrones.IsochroneSearchParameters;
 import heigit.ors.routing.RouteSearchContext;
 import heigit.ors.routing.RouteSearchParameters;
 import heigit.ors.routing.algorithms.DijkstraCostCondition;
 import heigit.ors.routing.graphhopper.extensions.AccessibilityMap;
+import heigit.ors.routing.graphhopper.extensions.weighting.AccelerationWeighting;
+import heigit.ors.routing.graphhopper.extensions.weighting.AdditionWeighting;
 import heigit.ors.routing.graphhopper.extensions.weighting.DistanceWeighting;
 
 public class GraphEdgeMapFinder {

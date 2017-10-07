@@ -117,8 +117,9 @@ public class AccelerationWeighting extends FastestWeighting {
 		if (edgeState instanceof VirtualEdgeIteratorState || prevOrNextEdgeId >= _maxEdges || edgeState.getEdge() >= _maxEdges)//  edgeState.getEdge() >= _maxEdges || prevOrNextEdgeId >= _maxEdges)
 		{
 			// compute acceleration for departure and finish edges.
-			double speed = flagEncoder.getSpeed(edgeState.getFlags());
-			return 15000;
+			//double speed = flagEncoder.getSpeed(edgeState.getFlags());
+			return 9500;
+//			return 0;
 		}
 
 		PointList currEdgeGeom, prevEdgeGeom;
@@ -200,10 +201,11 @@ public class AccelerationWeighting extends FastestWeighting {
 					
 			return (long)(-weight + accelTime + fullSpeedTime);*/
 			
-			long lastPart = 12;
+			long lastPart = 6;
 			long currPart = 8;
 			
 			return (lastPart + currPart)*1000;// 10 seconds for every turn
+//			return 0;
 		}
 		// TODO add ascent Part
 		return 0;
