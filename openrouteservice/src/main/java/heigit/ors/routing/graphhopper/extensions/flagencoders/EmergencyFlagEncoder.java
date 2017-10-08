@@ -262,28 +262,21 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
 		if (Helper.isEmpty(maxspeedTag))
 			maxspeedTag = way.getTag("maxspeed");
 		double maxSpeed = parseSpeed(maxspeedTag);
+		String highway = way.getTag("highway");
 		
 		if (bCheckMaxSpeed)
 		{
-			String highway = way.getTag("highway");
 			double defaultSpeed = _speedLimitHandler.getSpeed(highway);
 			if (defaultSpeed < maxSpeed) // TODO
 				maxSpeed = defaultSpeed;
-			// 30er Zone TODO restrict to waytype
-			if(maxSpeed == 30)
-				maxSpeed = 50;
-			//Spielstrasse
-			if(maxSpeed == 7 && highway == "living_street")
-				maxSpeed = 20;
 		}
-/**
- * 
-        // Amandus
-        if (speed == 30)
-            speed = 50;// seems to be way to easy like that
-        if (speed == 70)
-            speed = 80;
- */
+		// Amandus
+		// 30er Zone TODO restrict to waytype
+		if(maxSpeed == 30)
+			maxSpeed = 50;
+		//Spielstraße
+		if(maxSpeed == 7 && highway == "living_street")
+			maxSpeed = 20;
  
 		return maxSpeed;
 	}
@@ -503,10 +496,10 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
 	 *            overwrite determined priorities.
 	 */
 	protected void collect(ReaderWay way, TreeMap<Double, Integer> weightToPrioMap) { // Runge
-		if (way.hasTag("hgv", "designated") || (way.hasTag("access", "designated") && (way.hasTag("goods", "yes") || way.hasTag("hgv", "yes") || way.hasTag("bus", "yes") || way.hasTag("agricultural", "yes") || way.hasTag("forestry", "yes") )))
-			weightToPrioMap.put(100d, PriorityCode.BEST.getValue());
+//		if (way.hasTag("hgv", "designated") || (way.hasTag("access", "designated") && (way.hasTag("goods", "yes") || way.hasTag("hgv", "yes") || way.hasTag("bus", "yes") || way.hasTag("agricultural", "yes") || way.hasTag("forestry", "yes") )))
+//			weightToPrioMap.put(100d, PriorityCode.BEST.getValue());
 		// Amandus
-        else if (way.hasTag("highway", "service") && way.hasTag("service", "emergency_access"))
+        if (way.hasTag("highway", "service") && way.hasTag("service", "emergency_access"))
             weightToPrioMap.put(100d, PriorityCode.BEST.getValue());
         else
 		{
