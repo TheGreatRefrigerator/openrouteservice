@@ -152,16 +152,16 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
         defaultSpeedMap.put("motorway_link", 50);
         defaultSpeedMap.put("motorroad", 130);
         // bundesstraße
-        defaultSpeedMap.put("trunk", 120);
+        defaultSpeedMap.put("trunk", 110);
         defaultSpeedMap.put("trunk_link", 50);
         // linking bigger town
-        defaultSpeedMap.put("primary", 120);  
+        defaultSpeedMap.put("primary", 100);  
         defaultSpeedMap.put("primary_link", 50);
         // linking towns + villages
-        defaultSpeedMap.put("secondary", 120);
+        defaultSpeedMap.put("secondary", 100);
         defaultSpeedMap.put("secondary_link", 50);
         // streets without middle line separation
-        defaultSpeedMap.put("tertiary", 110);
+        defaultSpeedMap.put("tertiary", 90);
         defaultSpeedMap.put("tertiary_link", 50);
         defaultSpeedMap.put("unclassified", 60);
         defaultSpeedMap.put("residential", 50);
@@ -262,22 +262,23 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
 		if (Helper.isEmpty(maxspeedTag))
 			maxspeedTag = way.getTag("maxspeed");
 		double maxSpeed = parseSpeed(maxspeedTag);
-		String highway = way.getTag("highway");
+		
 		
 		if (bCheckMaxSpeed)
 		{
+			String highway = way.getTag("highway");
 			double defaultSpeed = _speedLimitHandler.getSpeed(highway);
 			if (defaultSpeed < maxSpeed) // TODO
 				maxSpeed = defaultSpeed;
 		}
-		// Amandus
+/*		// Amandus
 		// 30er Zone TODO restrict to waytype
-		if(maxSpeed == 30)
-			maxSpeed = 50;
+		if(maxSpeed == 30.0)
+			maxSpeed = 50.0;
 		//Spielstraße
-		if(maxSpeed == 7 && highway == "living_street")
-			maxSpeed = 20;
- 
+		if(maxSpeed == 7.0 && highway == "living_street")
+			maxSpeed = 20.0;
+ */
 		return maxSpeed;
 	}
 	
@@ -367,6 +368,10 @@ public class EmergencyFlagEncoder extends ORSAbstractFlagEncoder
         // allow railway=tram where paved? no suitable exclusion criteria found yet
         if (way.hasTag("aeroway", "runway") || way.hasTag("aeroway", "taxilane"))
         	return acceptBit;
+        //allow highway=footway, pedestrian
+        if (highwayValue == "pedestrian" || highwayValue == "footway")
+        	return acceptBit;
+        
         // do not drive cars over railways (sometimes incorrectly mapped!)
     /*    if (way.hasTag("railway") && !way.hasTag("railway", acceptedRailways))
         {

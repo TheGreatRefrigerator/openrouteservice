@@ -118,7 +118,7 @@ public class AccelerationWeighting extends FastestWeighting {
 		{
 			// compute acceleration for departure and finish edges.
 			//double speed = flagEncoder.getSpeed(edgeState.getFlags());
-			return 9500;
+			return 7500;
 //			return 0;
 		}
 
@@ -173,7 +173,7 @@ public class AccelerationWeighting extends FastestWeighting {
 			// compute acceleration influence for a segment after the turn.
 			/*if (speed > curveSpeed)
 			{
-			
+			  //accelerate
 			}*/
 			/*int totalSeconds = (int)(weight/1000) + 100;
             int accelTime = 0;
@@ -201,10 +201,10 @@ public class AccelerationWeighting extends FastestWeighting {
 					
 			return (long)(-weight + accelTime + fullSpeedTime);*/
 			
-			long lastPart = 6;
+			long lastPart = 8;
 			long currPart = 8;
 			
-			return (lastPart + currPart)*1000;// 10 seconds for every turn
+			return (lastPart + currPart)*1000;
 //			return 0;
 		}
 		// TODO add ascent Part
