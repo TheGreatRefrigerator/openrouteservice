@@ -21,4 +21,4 @@ target/
 .python-version
 nohup.out
 build/
-openrouteservice/src/main/files/heidelberg.osm
+openrouteservice/src/main/files/
